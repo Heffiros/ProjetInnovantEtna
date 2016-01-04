@@ -5,15 +5,15 @@ use Minima\Form\Base;
 use Model;
 
 class Login extends Base {
-    protected $fields = array('mail', 'password');
+    protected $fields = array('login', 'password');
     protected $validations = array(
-        'mandatory' => array('mail', 'password')
+        'mandatory' => array('login', 'password')
     );
     protected function validate()
     {
         $this->fields[] = 'user_id'; // hack
         
-        $vals = array('mail' => $this->values['mail'], 'password' => $this->values['password']);
+        $vals = array('login' => $this->values['login'], 'password' => $this->values['password']);
         if ($user = Model\User::find($vals)) {
             return $this->values['user_id'] = $user->getPk();
         } else {

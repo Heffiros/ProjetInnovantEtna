@@ -13,22 +13,12 @@ class Misc extends Base
 {
 	public function homeAction()
 	{
-
-		$form = new Form\Register($_POST, array('db' => $this->db));
 		$form_login = new Form\Login($_POST, array('db' => $this->db));
         
-        if ($this->method == 'POST' && $form->isValid()) {
-            $user = new Model\User($form->getValues());
-            $user->save();
-            $_SESSION['user_id'] = $user->getPk();
-
-            $this->redirect('backoffice');
-        }
-
  		if ($this->method == 'POST' && $form_login->isValid()) {
  			$_SESSION['user_id'] = $form_login->getValues()['user_id'];
-            $this->redirect('backoffice');
+            $this->redirect('dashboard');
  		}
-        return array('form' => $form, 'form_login' => $form_login);
+        return array('form_login' => $form_login);
 	}
 }
