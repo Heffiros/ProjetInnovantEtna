@@ -5,7 +5,13 @@ html,body {
 	height: 100%;
 }
 
+.boutonpad{
 
+   margin-left: 13px;
+}
+.boutongrouppromo{
+    margin-bottom: 39px;
+}
 .login-logo {
     font-size: 35px;
     text-align: center;

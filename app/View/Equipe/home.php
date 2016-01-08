@@ -8,12 +8,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Gérer les équipes</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="<?php echo BASEPATH ?>app/Stylesheet/dashboard.css" />
-
+    <link rel="stylesheet" type="text/css" href="<?php echo BASEPATH ?>app/Stylesheet/team.css" />
    
     <script src="ie-emulation-modes-warning.js"></script>
 
@@ -45,18 +45,51 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
-          
+          <h1 class="page-header">Gérer les équipes</h1>
+            
+            
+            <!-- Gestion des boutons pour selectionner les promotions -->
+            <div class="row">
+              <div class="col-xs-6 col-md-3 boutongrouppromo">
+            <?php
+              foreach ($allPromotion as $value) {
+                echo "<button style='margin_left:10px' class='btn btn-primary btn-lg boutonpad' onclick='test($value)'>$value</button>";
+              }
+            ?>
+            </div>
+          </div>
+            <!-- ####################################"  -->
+        
+              <div id="contenu_dyna"></div>
         </div>
       </div>
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+      function test(promotion) {
+        
+        var base = <?php echo BASEPATH ?>;
+        var url_promo = base + 'index.php/equipe/promotion';
+
+        $.ajax({
+        async: true,
+        type: 'POST',
+        data: {promotion : promotion},
+        url: url_promo,
+        success: function(data){
+          $("#contenu_dyna").html(data);
+        }
+        });
+      
+      }
+
+    </script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
   </body>
 </html>
