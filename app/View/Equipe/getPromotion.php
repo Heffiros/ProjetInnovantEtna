@@ -14,19 +14,19 @@
   		</fieldset>
 
   		<fieldset class="form-group">
-    	<label for="team">Nombre d'étudiant</label>
-		<input class="form-control" type="" name="chef" multiple required>
+    	<label for="team">Nom Projet</label>
+		<input class="form-control" type="text" name="nomprojet" multiple required>
 		</fieldset>
 
   		<fieldset class="form-group">
     	<label for="team">Chef de groupe</label>
-		<input class="form-control" list="allStudent" type="text" name="chef" multiple>
+		<input class="form-control" list="allStudent" type="text" name="chef" multiple required>
 		</fieldset>
 
 
 		<fieldset class="form-group">
     	<label for="team">Etudiant 1</label>
-		<input class="form-control" list="allStudent" type="text" name="student1" multiple>
+		<input class="form-control" list="allStudent" type="text" name="student1" multiple required>
 		</fieldset>
 
 

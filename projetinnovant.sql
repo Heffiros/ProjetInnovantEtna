@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2016 at 03:35 PM
+-- Generation Time: Jan 11, 2016 at 05:45 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -34,18 +34,10 @@ CREATE TABLE IF NOT EXISTS `groupe_projet` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `delete_at` date NOT NULL,
+  PRIMARY KEY (`id_personne`),
+  UNIQUE KEY `id_personne` (`id_personne`),
   UNIQUE KEY `id_projet` (`id_projet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `groupe_projet`
---
-
-INSERT INTO `groupe_projet` (`id`, `id_coach`, `id_personne`, `id_projet`, `created_at`, `updated_at`, `delete_at`) VALUES
-(1, 3, 4, NULL, '2016-01-11', '2016-01-11', '0000-00-00'),
-(1, 3, 2, NULL, '2016-01-11', '2016-01-11', '0000-00-00'),
-(1, 3, 5, NULL, '2016-01-11', '2016-01-11', '0000-00-00'),
-(1, 3, 6, NULL, '2016-01-11', '2016-01-11', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -107,10 +99,11 @@ INSERT INTO `personne` (`id`, `login`, `password`, `mail`, `role`, `skype`, `pro
 CREATE TABLE IF NOT EXISTS `projet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_group` int(11) NOT NULL,
+  `id_coach` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `descriptif` text NOT NULL,
-  `tag` text NOT NULL,
-  `status` int(11) NOT NULL,
+  `descriptif` text,
+  `tag` text,
+  `status_projet` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `deleted_at` date NOT NULL,

@@ -55,34 +55,75 @@ class Equipe extends Base
 
 	public function createTeamAction()
 	{
+
+		$array_id = array();
+		
 		$coach = array('login' => $_POST['coach']);
-		$chef = array('login' => $_POST['chef']);
-		$student1 = array('login' => $_POST['student1']);
-		$student2 = array('login' => $_POST['student2']);
-		$student3 = array('login' => $_POST['student3']);
-
 		$coach = Model\User::find($coach);
+		
+
+		$chef = array('login' => $_POST['chef']);
 		$chef = Model\User::find($chef);
+		$array_id[] = $chef->getId(); 
+		
+		$student1 = array('login' => $_POST['student1']);
 		$student1 = Model\User::find($student1);
-		$student2 = Model\User::find($student2);
-		$student3 = Model\User::find($student3);
+		$array_id[] = $student1->getId(); 
+		
 
-
+		if ($_POST['student2']) {
+			$student2 = array('login' => $_POST['student2']);
+			$student2 = Model\User::find($student2);
+			$array_id[] = $student2->getId(); 
+		}
+		if ($_POST['student3']) {
+			$student3 = array('login' => $_POST['student3']);
+			$student3 = Model\User::find($student3);			
+			$array_id[] = $student3->getId(); 
+		}
+		
+		//On récupère le dernière ID group utilisé
 		$id_group = $this->getLastId();
 
-		$sql = "INSERT INTO groupe_projet (id, id_coach, id_personne, created_at, updated_at) 
-		VALUES ($id_group, ".$coach->getId().", " .$chef->getId().", NOW(), NOW()),
-		($id_group, ".$coach->getId().", ".$student1->getId().", NOW(), NOW()),
-		($id_group, ".$coach->getId().", ".$student2->getId().", NOW(), NOW()),
-		($id_group, ".$coach->getId().", ".$student3->getId().", NOW(), NOW())
-		";
-		$this->db->query($sql);
-
-		$sql = "UPDATE personne SET id_group = $id_group WHERE login IN (:chef, :student1, :student2, :student3)";
-
-		$stmt = $this->db->prepare($sql);
+		//On relie les étudiants pour former le groupes
+		$this->insertNewGroup($coach, $array_id, $id_group);
+		$this->updateGroupId($id_group, $array_id);
+		$this->createProject($id_group, $coach->getId(), $_POST['nomprojet']);
+		$this->redirect('equipe');
 	}
 
+
+	private function createProject($id_group, $id_coach, $nomprojet)
+	{
+		$sql = "INSERT INTO projet (id_group, id_coach, nom, status_projet, created_at, updated_at) VALUES ($id_group, $id_coach, '$nomprojet', 0, CURDATE(), CURDATE() )";
+		$this->db->query($sql);
+	}
+
+	private function updateGroupId($id_group, $array_id)
+	{	
+		$sql = "UPDATE personne SET id_group = $id_group WHERE id IN (";
+
+		foreach ($array_id as $value) {
+			$sql .= $value .',';
+		}
+		$sql[strlen($sql) -1] = ')';
+		$this->db->query($sql);
+	}
+
+
+	private function insertNewGroup($coach, $array_id, $id_group)
+	{
+		$sql = "INSERT INTO groupe_projet (id, id_coach, id_personne, created_at, updated_at) VALUES " ;
+		foreach ($array_id as $value) {
+			$sql .= "($id_group, ".$coach->getId().", " .$value.", NOW(), NOW()),";
+		}
+		$sql[strlen($sql) -1] = '';
+
+		$this->db->query($sql);
+		return 0;
+	}
+
+	
 	private function getLastId()
 	{
 		$sql = "SELECT MAX(id) as maxID FROM groupe_projet WHERE 1";
