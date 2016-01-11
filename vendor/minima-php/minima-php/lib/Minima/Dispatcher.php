@@ -9,6 +9,8 @@ class Dispatcher
 
 	private $url = '';
 
+
+	private $ajax_array = array('getPromotion');
 	/**
 	 * @param array $routes Routes
 	 */
@@ -49,7 +51,7 @@ class Dispatcher
 						$this->variables,
 						$template_params ?: array()
 					);
-					if ($action == 'historiqueAchat') {
+					if (in_array($action , $this->ajax_array)) {
 						echo $renderer->render($params);
 					} else {
   						$renderer->renderWithLayout($params);

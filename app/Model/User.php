@@ -14,4 +14,19 @@ class User extends Base
             $this->values['password'] = $this->values['password'];
         parent::save();
     }
+
+    public function getId()
+    {
+    	return $this->values['id'];
+    }
+
+    public function getLogin()
+    {
+    	return $this->values['login'];
+    }
+
+    public function getAll()
+    {
+    	return $this->values;
+    }
 }
