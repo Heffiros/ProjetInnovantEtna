@@ -52,5 +52,28 @@
 	?>
 	</datalist>	 
 		</form>
+	<a href="#" onclick="aff_datatable()"> Voir les groupes formés </a>
+  	<div id="contenu_dyna2"></div>
   </div>
 </div>
+
+<script>
+	function aff_datatable()
+	{
+		var promotion = <?php echo $promotion ?>
+
+		var base = <?php echo BASEPATH ?>;
+        var url_promo = base + 'index.php/equipe/groupes';
+
+        $.ajax({
+        async: true,
+        type: 'POST',
+        data: {promotion : promotion},
+        url: url_promo,
+        success: function(data){
+          $("#contenu_dyna2").html(data);
+        }
+        });
+		
+	}
+</script>

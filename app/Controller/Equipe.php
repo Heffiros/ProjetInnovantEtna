@@ -50,7 +50,7 @@ class Equipe extends Base
  			$coach[] = $row;
 		}
 
-		return array('studentInPromo' => $studentInPromo, 'coach' => $coach);
+		return array('studentInPromo' => $studentInPromo, 'coach' => $coach, 'promotion' => $_POST['promotion']);
 	}
 
 	public function createTeamAction()
@@ -93,10 +93,40 @@ class Equipe extends Base
 	}
 
 
+	public function affDatatableAction()
+	{
+		$groupe_projet = array();
+		$sql = "SELECT * FROM personne PERS
+		JOIN groupe_projet GRP
+		ON  PERS.id = GRP.id_personne
+		JOIN projet PRO
+		ON GRP.id_projet = PRO.id
+		WHERE PERS.promotion = :promotion AND PERS.id_group IS NOT NULL";
+
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindParam(':promotion', $_POST['promotion']);
+
+ 		$stmt->execute();
+ 		while ($row = $stmt->fetch()) {
+ 			$groupe_projet[$row['id_group']][] = $row;
+		}
+
+		return array('groupe_projet' => $groupe_projet);
+	}
+
 	private function createProject($id_group, $id_coach, $nomprojet)
 	{
 		$sql = "INSERT INTO projet (id_group, id_coach, nom, status_projet, created_at, updated_at) VALUES ($id_group, $id_coach, '$nomprojet', 0, CURDATE(), CURDATE() )";
 		$this->db->query($sql);
+		$sql = "SELECT * FROM projet WHERE nom = '$nomprojet'";
+
+		$id_projet = $this->db->query($sql);
+		$id_projet = $id_projet->fetchAll();
+
+		$sql = "UPDATE groupe_projet SET id_projet = " . $id_projet[0]['id'] ." WHERE id = $id_group";
+		$id_projet = $this->db->query($sql);
+		return ;
 	}
 
 	private function updateGroupId($id_group, $array_id)

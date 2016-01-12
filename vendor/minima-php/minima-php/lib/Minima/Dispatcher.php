@@ -10,7 +10,7 @@ class Dispatcher
 	private $url = '';
 
 
-	private $ajax_array = array('getPromotion');
+	private $ajax_array = array('getPromotion', 'affDatatable');
 	/**
 	 * @param array $routes Routes
 	 */

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2016 at 05:45 PM
+-- Generation Time: Jan 12, 2016 at 11:54 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS `groupe_projet` (
   `updated_at` date NOT NULL,
   `delete_at` date NOT NULL,
   PRIMARY KEY (`id_personne`),
-  UNIQUE KEY `id_personne` (`id_personne`),
-  UNIQUE KEY `id_projet` (`id_projet`)
+  UNIQUE KEY `id_personne` (`id_personne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
