@@ -6,6 +6,7 @@ return array(
 	'equipe/promotion' => 'Equipe#getPromotion',
 	'equipe/create' => 'Equipe#createTeam',
 	'equipe/groupes' => 'Equipe#affDatatable',
+	'equipe/delete' => 'Equipe#deleteGroup',
 	'meeting' => 'Meeting#home',
 	'projet' => 'Projet#home',
 );

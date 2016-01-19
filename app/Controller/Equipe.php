@@ -101,7 +101,7 @@ class Equipe extends Base
 		ON  PERS.id = GRP.id_personne
 		JOIN projet PRO
 		ON GRP.id_projet = PRO.id
-		WHERE PERS.promotion = :promotion AND PERS.id_group IS NOT NULL";
+		WHERE PERS.promotion = :promotion AND PERS.id_group IS NOT NULL AND PRO.deleted_at = '0000-00-00'";
 
 		$stmt = $this->db->prepare($sql);
 
@@ -109,11 +109,35 @@ class Equipe extends Base
 
  		$stmt->execute();
  		while ($row = $stmt->fetch()) {
- 			$groupe_projet[$row['id_group']][] = $row;
+ 			$groupe_projet[$row['id_group']]['student'][] = $row;
+ 			$groupe_projet[$row['id_group']]['project'][] = $row['nom'];
 		}
-
 		return array('groupe_projet' => $groupe_projet);
 	}
+
+
+	public function deleteGroupAction()
+	{
+		$sql = "UPDATE groupe_projet SET deleted_at = NOW() WHERE id = :id_group";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':id_group', $_POST['id_group']);
+
+ 		$stmt->execute();
+
+ 		$sql = "UPDATE personne SET id_group = NULL WHERE id_group = :id_group";
+ 		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':id_group', $_POST['id_group']);
+
+ 		$stmt->execute();
+
+ 		$sql = "UPDATE projet SET deleted_at = NOW() WHERE id_group = :id_group";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':id_group', $_POST['id_group']);
+
+ 		$stmt->execute();
+ 		$this->redirect('equipe');
+ 	}
+
 
 	private function createProject($id_group, $id_coach, $nomprojet)
 	{

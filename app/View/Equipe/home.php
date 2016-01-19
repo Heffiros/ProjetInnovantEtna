@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Gérer les équipes</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="<?php echo BASEPATH ?>app/Stylesheet/dashboard.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo BASEPATH ?>app/Stylesheet/team.css" />
-   
-    <script src="ie-emulation-modes-warning.js"></script>
-
-  
-  </head>
-
-  <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -91,5 +67,3 @@
 
     </script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-  </body>
-</html>

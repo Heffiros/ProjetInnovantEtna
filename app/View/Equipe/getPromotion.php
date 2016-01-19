@@ -15,30 +15,30 @@
 
   		<fieldset class="form-group">
     	<label for="team">Nom Projet</label>
-		<input class="form-control" type="text" name="nomprojet" multiple required>
+		<input class="form-control" type="text" name="nomprojet" multiple required autocomplete="off">
 		</fieldset>
 
   		<fieldset class="form-group">
     	<label for="team">Chef de groupe</label>
-		<input class="form-control" list="allStudent" type="text" name="chef" multiple required>
+		<input class="form-control" list="allStudent" type="text" name="chef" multiple required autocomplete="off">
 		</fieldset>
 
 
 		<fieldset class="form-group">
     	<label for="team">Etudiant 1</label>
-		<input class="form-control" list="allStudent" type="text" name="student1" multiple required>
+		<input class="form-control" list="allStudent" type="text" name="student1" multiple required autocomplete="off">
 		</fieldset>
 
 
 		<fieldset class="form-group">
     	<label for="team">Etudiant 2</label>
-		<input class="form-control" list="allStudent" type="text" name="student2" multiple>
+		<input class="form-control" list="allStudent" type="text" name="student2" multiple autocomplete="off">
 		</fieldset>
 
 
 		<fieldset class="form-group">
     	<label for="team">Etudiant 3</label>
-		<input class="form-control" list="allStudent" type="text" name="student3" multiple>
+		<input class="form-control" list="allStudent" type="text" name="student3" multiple autocomplete="off">
 		</fieldset>
 
 
