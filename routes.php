@@ -8,5 +8,6 @@ return array(
 	'equipe/groupes' => 'Equipe#affDatatable',
 	'equipe/delete' => 'Equipe#deleteGroup',
 	'meeting' => 'Meeting#home',
-	'projet' => 'Projet#home',
+	'projet/info' => 'Projet#home',
+	'projet/modifdescription' => 'Projet#modifierProjet',
 );

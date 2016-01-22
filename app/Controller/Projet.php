@@ -10,8 +10,24 @@ class Projet extends Base
 	{	
 		$vals = array('id' => $_SESSION['user_id']);
 		$user = Model\User::find($vals);
-
-		$this->db->query()
-		return array('user' => $user);
+		
+		$vals = array('id_group' => $_GET['projet']);
+		$projet = Model\Projet::find($vals); 
+		return array('user' => $user , 'projet' => $projet);
 	}
+
+
+	public function modifierProjetAction()
+	{
+		$sql = "UPDATE projet SET descriptif = :descriptif WHERE id = :id_projet";
+
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':id_projet', $_POST['id_projet']);
+		$stmt->bindParam(':descriptif', $_POST['descriptif']);
+ 		$stmt->execute();
+ 		echo BASEPATH . "index.php/projet/info?projet= " . $_POST['id_projet'];
+ 		$this->redirect("projet/info?projet=" . $_POST['id_projet']);
+	}
+
+
 }

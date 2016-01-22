@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Dashboard</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="<?php echo BASEPATH ?>app/Stylesheet/dashboard.css" />
-
-   
-    <script src="ie-emulation-modes-warning.js"></script>
-
-  
-  </head>
-
-  <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -45,18 +21,54 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
-            MEETING
-          
+          <h1 class="page-header"><?php echo $projet['nom'] ?></h1>
+      <div class="row">
+      <fieldset>
+      <legend>Description</legend>
+      </div>          
+      <?php
+      if (count($projet['descriptif']) != 0) {
+        echo $projet['descriptif'];
+      } else {
+        echo "Il n'y a pas encore de description\n";
+      }
+      ?>
+      </fieldset>
+      <br>
+      <a onclick="aff_form(<?php echo$projet['id'] ?>)">Modifier la description</a>
+      <div class="container">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Modifier</button>
+
+  <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Modifier la description du projet</h4>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="<?php echo BASEPATH ?>index.php/projet/modifdescription">
+              <div class="form-group">
+              <label for="comment">Description :</label>
+              <textarea class="form-control" rows="15" cols="300" id="comment" name="descriptif"><?php echo $projet['descriptif']?></textarea>
+              </div>
+              <div class="form-group">
+              <input type="submit" class="btn btn-success" value="Modifier"></button>
+              </div>
+              <input type="hidden" name="id_projet" value="<?php echo $projet['id']?> ">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+          </div>
         </div>
       </div>
     </div>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-  </body>
-</html>
+</div>
+
+      </div>
+<div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

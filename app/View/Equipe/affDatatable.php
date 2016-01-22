@@ -42,6 +42,7 @@
         <tr>
             <th>Nom du projet</th>
             <th>Groupe login</th>
+            <th>Info</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -58,9 +59,10 @@
         	}
           $string[strlen($string) - 2] = '';
           echo $string;
+
+          echo "<th><img src='".BASEPATH."app/Media/edit.png' onclick='info_groupe($id)'></img></th>";
         	echo "</th>";
-        	echo "<th><img src='".BASEPATH."app/Media/croix.png' onclick='delete_groupe($id)'></img>
-                               <img src='".BASEPATH."app/Media/edit.png'></img>";
+        	echo "<th><img src='".BASEPATH."app/Media/croix.png' onclick='delete_groupe($id)'></img>";
                     echo "</th>"; 
             echo "</tr>";
 	    }
@@ -84,6 +86,15 @@
 
 
 <script type="text/javascript">
+function info_groupe(id_group) {
+
+    var base = <?php echo BASEPATH ?>;
+    var url = base + 'index.php/projet/info?projet=' + id_group;
+    window.location.replace(url);
+}
+
+
+
 function delete_groupe(id_group) {
 
     var base = <?php echo BASEPATH ?>;
@@ -98,7 +109,6 @@ function delete_groupe(id_group) {
             var base = <?php echo BASEPATH ?>;
             var  url_redirect = base + 'index.php/equipe';
             window.location.replace(url_redirect);
-            // $("#contenu_dyna3").html(data);
         }
         });
 }
