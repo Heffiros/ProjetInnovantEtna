@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Controller;
 use Minima\Controller\Base;
 use Form;
@@ -8,12 +8,19 @@ class Projet extends Base
 {
 	public function homeAction()
 	{	
+		$meeting = array();
 		$vals = array('id' => $_SESSION['user_id']);
 		$user = Model\User::find($vals);
 		
 		$vals = array('id_group' => $_GET['projet']);
 		$projet = Model\Projet::find($vals); 
-		return array('user' => $user , 'projet' => $projet);
+	
+		$id_group = $projet['id_group'];
+		$sql = "SELECT * FROM meeting WHERE id_group = $id_group ORDER BY updated_at";
+		$meeting = $this->db->query($sql);
+		$meeting = $meeting->fetchAll();
+		
+		return array('user' => $user , 'projet' => $projet, 'meeting' => $meeting);
 	}
 
 

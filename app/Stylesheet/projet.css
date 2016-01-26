@@ -1,0 +1,22 @@
+.meeting {
+	padding: 10px;
+	text-align: center;
+	color: white;
+	font-size: 25px;
+}
+
+.green {
+	background: #5cb85c;
+}
+
+.red {
+	background: #c9302c;
+}
+
+.blue {
+	background: #286090;
+}
+
+.modif {
+	float: right;
+}
